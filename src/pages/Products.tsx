@@ -28,6 +28,7 @@ import {
 import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon, Image as ImageIcon } from '@mui/icons-material';
 import { supabase } from '../lib/supabase';
 import { toast } from 'react-toastify';
+import slugify from 'slugify';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import FilterSearch from '../components/FilterSearch';
 import { uploadImage } from '../lib/cloudinary';
@@ -88,6 +89,7 @@ interface Product {
   martindale?: string;
   repeats?: string;
   end_use?: string;
+  slug?: string;
   image_url?: string;
   region_product_mapping?: RegionProductMapping[];
   product_colors?: ProductColor[];
@@ -520,7 +522,7 @@ export default function Products() {
 
     try {
       let image_url = formData.image_url;
-
+      const slug = slugify(formData.name, { lower: true });
       if (formData.image) {
         const uploadedUrl = await uploadImage(formData.image);
         if (uploadedUrl) {
@@ -530,6 +532,7 @@ export default function Products() {
 
       const productData = {
         name: formData.name,
+        slug,
         description: formData.description,
         subcategory_id: formData.subcategory_id,
         price: formData.price ? parseFloat(formData.price) : null,
