@@ -49,6 +49,7 @@ const defaultRegion: Partial<Region> = {
   icon_url: '',
   enable_business_hours: false,
   business_hours: '',
+  gst_vat_registration_no: '',
 };
 
 export default function Regions() {
@@ -380,6 +381,14 @@ export default function Regions() {
                 fullWidth
                 value={formData.address_1}
                 onChange={handleChange('address_1')}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="GST/VAT Registration No."
+                fullWidth
+                value={formData.gst_vat_registration_no}
+                onChange={handleChange('gst_vat_registration_no')}
               />
             </Grid>
             <Grid item xs={12}>
